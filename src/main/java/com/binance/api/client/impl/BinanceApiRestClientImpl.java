@@ -174,7 +174,11 @@ public class BinanceApiRestClientImpl implements BinanceApiRestClient {
 
   @Override
   public Account getAccount() {
-    return getAccount(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, System.currentTimeMillis());
+    long start = System.currentTimeMillis();
+    long serverTime = this.getServerTime();
+    long end = System.currentTimeMillis();
+    long gap = end - start;
+    return getAccount(BinanceApiConstants.DEFAULT_RECEIVING_WINDOW, serverTime + gap);
   }
 
   @Override
